@@ -6,10 +6,15 @@ jobs:
     name: Build for Web
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: false  # Don't auto-download, use custom script
+          
+      - name: Download Submodules
+        run: |
+          chmod +x DownloadSubmodules.sh
+          ./DownloadSubmodules.sh
+        shell: bash
       
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v14

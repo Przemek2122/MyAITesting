@@ -12,8 +12,8 @@ jobs:
           
       - name: Download Submodules
         run: |
-          chmod +x Scripts/DownloadSubmodules.sh
-          ./Scripts/DownloadSubmodules.sh
+          chmod +x DownloadSubmodules.sh
+          ./DownloadSubmodules.sh
         shell: bash
       
       - uses: actions/setup-java@v4
