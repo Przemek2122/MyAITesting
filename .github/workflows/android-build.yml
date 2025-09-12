@@ -8,7 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # Updated to v4
         with:
-          submodules: true  # Handle submodules manually
+          submodules: false  # Handle submodules manually
+      
+      - name: Download Submodules
+        run: |
+          chmod +x Scripts/DownloadSubmodules.sh
+          bash Scripts/DownloadSubmodules.sh
       
       - uses: actions/setup-java@v4
         with:
@@ -17,10 +22,6 @@ jobs:
       
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-      
-      - name: Update the build.gradle
-        run: |
-          cp build.gradle build/android/android-project/app/
       
       - name: Make gradlew executable
         run: |
