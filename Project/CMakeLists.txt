@@ -62,7 +62,13 @@ endif()
 #==============================================================================
 
 # Engine directory
-add_subdirectory(${ENGINE_PATH} ${ENGINE_BUILD_PATH})
+
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${ENGINE_PATH}")
+    add_subdirectory(${ENGINE_PATH} ${ENGINE_BUILD_PATH})
+else()
+    # When building from root, Engine is at different location
+    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/Engine/Engine" ${ENGINE_BUILD_PATH})
+endif()
 
 # Engine config
 set(ENGINE_COPY_ENGINE_MAPS OFF)
