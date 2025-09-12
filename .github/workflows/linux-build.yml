@@ -39,7 +39,11 @@ jobs:
             libxi-dev \
             libxinerama-dev \
             libxxf86vm-dev \
-            libxss-dev
+            libxss-dev \
+            libfreetype6-dev \
+            libharfbuzz-dev \
+            libfontconfig1-dev \
+            pkg-config
       
       - name: Configure and Build
         run: |
