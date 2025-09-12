@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   build-web:
-    name: Build demo for Web
+    name: Build for Web
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,11 +22,11 @@ jobs:
       
       - name: Build for web
         run: |
-          rm -rf build  # Remove existing build directory
-          mkdir build
-          cd build
-          emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
-          cmake --build . --parallel $(nproc)
+            rm -rf build
+            mkdir build
+            cd build
+            emcmake cmake -DCMAKE_BUILD_TYPE=Release ../Project  # Point to Project/
+            cmake --build . --parallel $(nproc)
       
       - name: Prepare for upload
         run: |

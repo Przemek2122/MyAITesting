@@ -6,14 +6,14 @@ jobs:
     name: Apk Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Updated to v4
+      - uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: false  # Don't auto-download, use custom script
           
       - name: Download Submodules
         run: |
-        chmod +x Scripts/DownloadSubmodules.sh
-        ./DownloadSubmodules.sh
+          chmod +x Scripts/DownloadSubmodules.sh
+          ./Scripts/DownloadSubmodules.sh
         shell: bash
       
       - uses: actions/setup-java@v4
@@ -35,7 +35,7 @@ jobs:
           ./gradlew assembleDebug
       
       - name: Upload the APK
-        uses: actions/upload-artifact@v4  # Updated to v4
+        uses: actions/upload-artifact@v4
         with: 
           name: app-debug-apk
           path: build/android/android-project/app/build/outputs/apk/debug/app-debug.apk
