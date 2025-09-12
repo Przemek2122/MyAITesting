@@ -8,12 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # Updated to v4
         with:
-          submodules: false  # Handle submodules manually
-      
-      - name: Download Submodules
-        run: |
-          chmod +x Scripts/DownloadSubmodules.sh
-          bash Scripts/DownloadSubmodules.sh
+          submodules: true
       
       - uses: actions/setup-java@v4
         with:
