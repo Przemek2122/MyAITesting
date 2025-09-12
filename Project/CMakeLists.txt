@@ -164,8 +164,16 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 # TESTS
 #==============================================================================
 
-# No andoird test support
-if(WIN32)
+set(PROJECT_TESTS_ENABLED FALSE)
+
+# Decide if we want tests (for now only windows x64)
+if(WIN32 AND NOT CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64")
+    if(CMAKE_GENERATOR_PLATFORM STREQUAL "x64" OR (NOT DEFINED CMAKE_GENERATOR_PLATFORM AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+        set(PROJECT_TESTS_ENABLED TRUE)
+    endif()
+endif()
+
+if(PROJECT_TESTS_ENABLED)
     message(STATUS "Adding google tests")
 
     # Create test executable
@@ -224,7 +232,7 @@ if(WIN32)
     message(STATUS "Added google tests!")
 endif()
 
-if(WIN32)
+if(PROJECT_TESTS_ENABLED)
     # Target for build all (To use from config script)
     add_custom_target(BuildAllProject ALL
         DEPENDS Engine Game ProjectTests
@@ -260,7 +268,7 @@ copy_runtime_dlls("${PROJECT_NAME}")
 
 group_targets("Core" "${PROJECT_NAME}")
 
-if(WIN32)
+if(PROJECT_TESTS_ENABLED)
     copy_runtime_dlls(ProjectTests)
 
     # Special test dlls copy
