@@ -124,7 +124,7 @@ if(CMAKE_GENERATOR MATCHES "Visual Studio")
         COMMAND ${CMAKE_COMMAND} -E copy_directory 
             "${ASSETS_ENGINE_TARGET_PATH}" 
             "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Assets"
-        COMMENT "Copying game assets to output directory..."
+        COMMENT "Copying project assets to output directory..."
     )
 endif()
 
@@ -235,12 +235,12 @@ endif()
 if(PROJECT_TESTS_ENABLED)
     # Target for build all (To use from config script)
     add_custom_target(BuildAllProject ALL
-        DEPENDS Engine Game ProjectTests
+        DEPENDS Engine "${PROJECT_NAME}" ProjectTests
     )
 else()
     # Target for build all (To use from config script)
     add_custom_target(BuildAllProject ALL
-        DEPENDS Engine Game
+        DEPENDS Engine "${PROJECT_NAME}"
     )
 endif()
 
