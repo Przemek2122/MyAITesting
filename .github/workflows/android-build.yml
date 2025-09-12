@@ -12,8 +12,8 @@ jobs:
           
       - name: Download Submodules
         run: |
-          chmod +x DownloadSubmodules.sh
-          ./DownloadSubmodules.sh
+          echo "Using git submodule update"
+          git submodule update --init --recursive
         shell: bash
       
       - uses: actions/setup-java@v4
