@@ -1,5 +1,6 @@
-name: Build Sample
+name: Build Windows
 on: [push, pull_request]
+
 jobs:
     build-win:
         name: Build for Windows
@@ -16,12 +17,12 @@ jobs:
           - name: Download Submodules
             run: |
                 # Method 1: Try custom script if it exists
-                if (Test-Path "Scripts\DownloadSubmodules.sh") {
+                if (Test-Path "Scripts/DownloadSubmodules.sh") {
                     Write-Host "Using DownloadSubmodules.sh"
                     bash Scripts/DownloadSubmodules.sh
-                } 
+                }
                 # Method 2: Try Git script
-                elseif (Test-Path "Engine\Scripts\Git\UpdateSubmodulesRecursiveGit.sh") {
+                elseif (Test-Path "Engine/Scripts/Git/UpdateSubmodulesRecursiveGit.sh") {
                     Write-Host "Using UpdateSubmodulesRecursiveGit.sh"
                     bash Engine/Scripts/Git/UpdateSubmodulesRecursiveGit.sh
                 }
@@ -35,11 +36,15 @@ jobs:
           - name: Verify Submodules
             run: |
                 Write-Host "Checking submodule directories..."
-                if (Test-Path "Engine\ThirdParty\SDL\CMakeLists.txt") {
-                    Write-Host "✓ SDL submodule found"
+                if (Test-Path "Engine/ThirdParty/SDL/CMakeLists.txt") {
+                    Write-Host "SDL submodule found"
                 } else {
-                    Write-Host "✗ SDL submodule missing"
-                    Get-ChildItem "Engine\ThirdParty\" -ErrorAction SilentlyContinue
+                    Write-Host "SDL submodule missing"
+                    if (Test-Path "Engine/ThirdParty/") {
+                        Get-ChildItem "Engine/ThirdParty/" -ErrorAction SilentlyContinue
+                    } else {
+                        Write-Host "Engine/ThirdParty directory does not exist"
+                    }
                 }
             shell: powershell
           
